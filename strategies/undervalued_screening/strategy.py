@@ -77,11 +77,13 @@ def on_bar(context, bar):
     if eps < min_eps:
         undervalued = False
 
-    position = context.get('position', 0)
+    # 실제 포지션은 context.positions에서 확인 (context['position']은 항상 0이므로 사용 금지)
+    symbol = bar.get('symbol', '')
+    has_position = symbol in context.positions
 
-    if undervalued and position == 0:
+    if undervalued and not has_position:
         return [{'side': 'BUY', 'quantity': 1, 'order_type': 'MARKET'}]
-    elif not undervalued and position > 0:
-        return [{'side': 'SELL', 'quantity': position, 'order_type': 'MARKET'}]
+    elif not undervalued and has_position:
+        return [{'side': 'SELL', 'quantity': 1, 'order_type': 'MARKET'}]
 
     return []
