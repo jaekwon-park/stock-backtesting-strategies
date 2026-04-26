@@ -127,7 +127,7 @@ def on_bar(ctx, bar):
     # 포지션 관리 (청산 우선)
     meta = ctx['pos_meta'].get(symbol)
     if meta:
-        meta['hold'] += 1
+        meta['hold'] = meta['hold'] + 1
 
         if close >= meta['target']:
             orders.append({'side': 'SELL', 'symbol': symbol, 'qty': 9999999})
