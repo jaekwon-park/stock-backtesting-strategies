@@ -187,7 +187,7 @@ def on_bar(ctx, bar):
     if stop_dist <= 0:
         return []
 
-    capital  = ctx.get('cash', 0)
+    capital  = ctx.cash
     risk_amt = capital * ctx['risk_pct']
     qty      = int(risk_amt / stop_dist)
 
